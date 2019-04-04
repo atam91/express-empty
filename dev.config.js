@@ -15,7 +15,7 @@ module.exports = {
             log_file: logPath('express-empty-log'),
             out_file: logPath('express-empty-out'),
             error_file: logPath('express-empty-error'),
-            log_date_format: LOG_DATE_FORMAT,
+            ///log_date_format: LOG_DATE_FORMAT,
             env: ENVIRONMENT
         }
     ]
