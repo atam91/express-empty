@@ -5,21 +5,21 @@ var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
 var stylus = require('stylus');
 
-var logger = require("./app/utils/logger");
-var appRouter = require('./app/routes');
+var logger = require("./utils/logger");
+var appRouter = require('./routes');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'app/views'));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(morgan('dev', { "stream": logger.stream }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(stylus.middleware(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(stylus.middleware(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/', appRouter);
 
@@ -33,6 +33,8 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  logger.error(err);
 
   // render the error page
   res.status(err.status || 500);
